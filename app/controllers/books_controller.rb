@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
@@ -11,6 +11,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @user = User.find(@book.user_id)
   end
 
   # GET /books/new
@@ -27,6 +28,7 @@ class BooksController < ApplicationController
   def create
     @user = current_user
     @book = @user.books.new(book_params)
+    @book.user_id = current_user.id
 
     respond_to do |format|
       if @book.save
