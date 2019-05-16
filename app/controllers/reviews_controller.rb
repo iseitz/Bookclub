@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
 
   def create
     @book = Book.find(params[:book_id])
