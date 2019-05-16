@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "books/show", type: :view do
   before(:each) do
+    @user = FactoryBot.create(:user)
+    
     @book = assign(:book, Book.create!(
       :title => "Title",
       :description => "MyText",
       :image => "Image",
-      :author => nil,
-      :user_id => 2
+      :author => "Author",
+      :user_id => @user.id
     ))
   end
 
@@ -16,7 +18,7 @@ RSpec.describe "books/show", type: :view do
     expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/Image/)
-    expect(rendered).to match(//)
+    expect(rendered).to match(/Author/)
     expect(rendered).to match(/2/)
   end
 end

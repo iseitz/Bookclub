@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "books/edit", type: :view do
   before(:each) do
+    @user = FactoryBot.create(:user)
+
     @book = assign(:book, Book.create!(
       :title => "MyString",
       :description => "MyText",
       :image => "MyString",
-      :author => nil,
-      :user_id => 1
+      :author => "Author",
+      :user_id => @user.id
     ))
   end
 

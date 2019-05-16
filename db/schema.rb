@@ -22,11 +22,12 @@ ActiveRecord::Schema.define(version: 2019_05_01_114051) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "author"
+    t.string "author_firstname", null: false
+    t.string "author_lastname", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.text "content"
+    t.text "content", null: false
     t.string "image"
     t.integer "book_id"
     t.integer "user_id"
