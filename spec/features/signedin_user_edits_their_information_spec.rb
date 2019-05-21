@@ -44,14 +44,15 @@ require 'rails_helper.rb'
     visit "/"
     click_link "Your Profile"
     click_link "Edit Profile"
-    click_link "Change Profile Photo"
-    # upload the photo somehow
-    click_button "Submit"
+    fill_in "Bio", with: "I am an avid booklover and up until now I have read 1000 boooks"
+    page.attach_file ("#{Rails.root}/spec/support/images/photo.jpeg")
+    click_button "Update User"
 
+    expect(page).to have_content("I am an avid booklover and up until now I have read 1000 boooks")
     expect(page).to have_content("#{@user.username}")
-    expect(page).to have_content("Name")
-    expect(page).to_not have_content("Submit")
+    expect(page).to have_content("Username")
+    expect(page).to_not have_content("Update User")
     expect(page).to have_content("Edit Profile")
-    # expect(page).to have the new image uploaded
+    expect(page).to have_css("img[src*= 'photo.jpeg']")
   end
 end

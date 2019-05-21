@@ -1,3 +1,10 @@
 <h1>Edit Your Profile</h1>
 
+<p>
+<% if @user.avatar? %>
+    <%= image_tag(@user.avatar.small.url) %>
+<% end %>
+</p>
+
+
 <%= render 'form', user: @user %>

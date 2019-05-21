@@ -7,6 +7,12 @@
 <% end %>
 
 <p>
+  <% if @user.avatar? %>
+      <%= image_tag(@user.avatar.small.url) %>
+  <% end %>
+</p>
+
+<p>
   <strong>Username:</strong>
   <%= @user.username %>
 </p>

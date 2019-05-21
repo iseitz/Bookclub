@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   validates :description, presence: :true
   validates :author_firstname, presence: :true
   validates :author_lastname, presence: :true, length: { minimum: 3 }
+  mount_uploader :image, BookImageUploader
 
   def identify
     identification = self.title + self.author_lastname
