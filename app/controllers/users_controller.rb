@@ -8,7 +8,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    if @user.role == 'admin'
+      @user = User.find(params[:id])
+    end
   end
 
   def update
@@ -26,7 +29,8 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = current_user
   end
 
   # def account_update_params

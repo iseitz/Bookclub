@@ -29,3 +29,6 @@
 
 # Ignore application configuration
 /config/application.yml
+
+/db/seeds/admins.rb
+/bd/seeds/removed_users.rb
