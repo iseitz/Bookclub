@@ -3,8 +3,14 @@
 <h1><%= @user.username %> Profile </h1>
 
 <% if user_signed_in? %>
-<%= link_to 'Edit Profile', edit_user_path(@user) %>
+<%= link_to 'Edit Profile', edit_user_registration_path(current_user) %>
 <% end %>
+
+<p>
+  <% if @user.avatar? %>
+      <%= image_tag(@user.avatar.small.url) %>
+  <% end %>
+</p>
 
 <p>
   <strong>Username:</strong>

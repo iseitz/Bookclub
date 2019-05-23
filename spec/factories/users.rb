@@ -8,6 +8,17 @@ FactoryBot.define do
      # if we do not test the mails sent out we can use this model:
     after(:build) { |u| u.skip_confirmation_notification! }
     after(:create) { |u| u.confirm }
+
+    trait :admin do
+      role { 'admin'}
+    end
+
+    trait :removed_user do
+      username { 'removedUser'}
+      role { 'inactive'}
+    end
+    factory :removed_user, traits: [:removed_user]
+    factory :admin, traits: [:admin]
    end
 end
 

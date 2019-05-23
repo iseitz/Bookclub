@@ -84,6 +84,11 @@ RSpec.describe BooksController, type: :controller do
         post :create, params: {book: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Book.last)
       end
+
+      # it "allows user to attach an image of the book" do
+      #   post :create, params: {book: valid_attributes}, session: valid_session
+      # }.to be_successful
+      # end
     end
 
     context "with invalid params" do

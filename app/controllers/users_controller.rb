@@ -1,18 +1,22 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  # before_action :configure_permitted_parameters, if: :devise_controller?
 
   def show
     @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    if @user.role == 'admin'
+      @user = User.find(params[:id])
+    end
   end
 
   def update
     respond_to do |format|
-      if @user.update(account_update_params)
+      if @user.update(user_params)
         format.html { redirect_to @user, notice: 'Your details where successfully updated' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -25,11 +29,16 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = current_user
   end
 
-  def account_update_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :current_password, :bio)
+  # def account_update_params
+  #     params.require(:user).permit(:username, :password, :password_confirmation, :current_password, :bio, :avatar)
+  # end
+
+  def user_params
+    params.require(:user).permit(:avatar, :username, :email, :password, :password_confirmation, :current_password, :bio)
   end
 
 end

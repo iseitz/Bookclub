@@ -16,7 +16,11 @@ feature "visiting the main page displayig the books" do
       click_link 'Discover Books'
       expect(page).to have_content("Hello, booksfan - Sign_out")
       expect(page).to have_content("GoodBook1")
+      expect(page).to have_content("#{@book1.author_firstname}")
+      expect(page).to have_content("#{@book1.author_lastname}")
       expect(page).to have_content("GoodBook2")
+      expect(page).to have_content("#{@book2.author_firstname}")
+      expect(page).to have_content("#{@book2.author_lastname}")
       expect(page).to have_link("New Book")
     end
   end
@@ -32,7 +36,13 @@ feature "visiting the main page displayig the books" do
       click_link 'Discover Books'
 
       expect(page).to have_content("GoodBook1")
+      expect(page).to have_content("#{@book1.author_firstname}")
+      expect(page).to have_content("#{@book1.author_lastname}")
+      expect(page).to have_content("#{@book1.description}")
       expect(page).to have_content("GoodBook2")
+      expect(page).to have_content("#{@book2.author_firstname}")
+      expect(page).to have_content("#{@book2.author_lastname}")
+      expect(page).to have_content("#{@book2.description}")
       expect(page).to have_link("Sign_in")
       expect(page).to have_link("Register")
       expect(page).to have_link("New Book")

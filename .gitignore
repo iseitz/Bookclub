@@ -26,3 +26,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore application configuration
+/config/application.yml
+
+/db/seeds/admins.rb
+/bd/seeds/removed_users.rb

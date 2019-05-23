@@ -9,8 +9,9 @@
 </p>
 
 <p>
-  <strong>Image:</strong>
-  <%= @book.image %>
+<% if @book.image? %>
+    <%= image_tag(@book.image.small.url) %>
+<% end %>
 </p>
 
 <p>

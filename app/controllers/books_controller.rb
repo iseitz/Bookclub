@@ -12,7 +12,11 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @user = User.find(@book.user_id)
+    if User.where(id: "#{@book.user_id}".to_i).exists?(conditions = :none)
+      @user = User.find(@book.user_id)
+    else
+      @user = User.find_by(username: 'removedUser')
+    end
   end
 
   # GET /books/new
