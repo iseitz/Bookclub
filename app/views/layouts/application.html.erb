@@ -10,23 +10,13 @@
   </head>
 
   <body>
-    <div class="notifications">
-      <span class="notice"><%= notice %></span>
-      <span class="alert"><%= alert %></span>
+    <%= render 'layouts/header' %>
+    <div class="container">
+        <div class="notifications">
+          <span class="notice"><%= notice %></span>
+          <span class="alert"><%= alert %></span>
+        </div>
+        <%= yield %>
     </div>
-    <div class="greeting">
-        <% if user_signed_in? %>
-          <p> Hello, <%= current_user.username %> - <%= link_to "Sign_out", destroy_user_session_path, :method => 'delete' %></p>
-        <% else %>
-          <%= link_to "Sign_in", new_user_session_path %>
-          <%= link_to "Register", new_user_registration_path %>
-        <% end %>
-    </div>
-    <div class="profile_link">
-        <% if user_signed_in? %>
-        <%= link_to "Your Profile", user_path(current_user) %>
-        <% end %>
-    <div>
-    <%= yield %>
   </body>
 </html>

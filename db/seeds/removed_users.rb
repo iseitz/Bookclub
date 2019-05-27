@@ -4,6 +4,6 @@ if @removed_users.length == 0
   User.create!( username: 'removedUser',
                 email: 'bookapeclub@gmail.com',
                 role: 'inactive',
-                password: 'cooladminIrina2019',
-                password_confirmation: 'cooladminIrina2019')
+                password: 'UserWithNoProfile2019',
+                password_confirmation: 'UserWithNoProfile2019')
 end

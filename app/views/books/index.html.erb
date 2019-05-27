@@ -1,28 +1,17 @@
-<h1>Books</h1>
+<% if !user_signed_in? %>
+    <div class="jumbotron">
+      <h3>Be Nice, Share With Others Your Best Books To Read</h3>
+      <p>We are sure you have some nice books to share with others!</p>
+      <p><%= link_to "Sign Up To Write A Review Of Your Favorite Books", new_user_registration_path, class: 'btn btn-primary btn-lg' %></p>
+    </div>
+<% end %>
 
+<div class="row">
   <% @books.each do |book| %>
-      <% if book.image? %>
-          <%= image_tag(book.image.thumb.url) %>
-      <% end %>
-      <br>
-      <h2><%= link_to book.title, book %></h2>
-      <h2>by <%= book.author_firstname%> <%= book.author_lastname%></h2>
-      <%= book.description %>
-
-      <% if User.where(id: "#{book.user_id}".to_i).exists?(conditions = :none) %>
-      <% @post_user = User.find(book.user_id) %>
-      <% else %>
-      <% @post_user = User.find_by(username:'removedUser') %>
-      <% end %>
-      <h3>Posted by <%= @post_user.username %></h3>
-
-      <br>
-      <% if user_signed_in? && current_user.role == "admin" || user_signed_in? && current_user.role == "moderator" %>
-        <%= link_to 'Edit', edit_book_path(book) %>
-        <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-      <hr>
+      <div class="col-sm-6 col-md-3"></div>
+        <div class="thumbnail">
+          <%= link_to (image_tag book.image.url(:medium), class: 'image'), book %>
+        </div>
+      </div>
   <% end %>
-  <br>
-
-  <%= link_to 'New Book', new_book_path %>
+</div>

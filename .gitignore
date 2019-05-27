@@ -32,3 +32,5 @@
 
 /db/seeds/admins.rb
 /db/seeds/removed_users.rb
+
+public/uploads
