@@ -3,7 +3,7 @@
     <div class="col-md-4">
 
       <% if @book.image? %>
-          <%= image_tag(@book.image.medium.url) %>
+          <%= image_tag(@book.image.large.url) %>
       <% end %>
        <div class="table-responsive">
          <table class="table">
@@ -43,6 +43,9 @@
   <%= render "reviews/form" %>
   <% if current_user.id == @user.id  || current_user.role == "admin" %>
     <%= link_to 'Edit', edit_book_path(@book) %>
+  <% end %>
+  <% if current_user.role == "admin" %>
+    <%= link_to 'Delete Book', @book, method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 <% end %>
 

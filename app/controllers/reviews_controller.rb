@@ -1,17 +1,43 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_book
+  before_action :set_review, only: [:edit, :update]
+
+  def edit
+
+  end
 
   def create
-    @book = Book.find(params[:book_id])
-    @review = @book.reviews.create(review_params)
+    @review = @book.reviews.build(review_params)
     @book_user = User.find(@book.user_id)
 
     ReviewMailer.review_created(current_user, @book_user, @review.content, @book).deliver
+    if @review.save
+      redirect_to book_path(@book)
+    else
+      render :new
+    end
+  end
 
-    redirect_to book_path(@book)
+  def update
+    respond_to do |format|
+      if @review.update(review_params)
+        format.html { redirect_to @book, notice: 'Review was successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
   end
 
   private
+
+  def set_review
+    @review = Review.find(params[:id])
+  end
+
+  def set_book
+    @book = Book.find(params[:book_id])
+  end
 
   def review_params
     params.require(:review).permit(:content, :image, :user_id)

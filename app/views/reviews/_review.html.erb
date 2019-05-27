@@ -1,1 +1,4 @@
-<p><%= review.content %></p><br>
+<% @review_user = User.find(review.user_id) %>
+<strong><p><%= @review_user.username %></p></strong>
+<p><%= review.content %></p>
+<%= link_to 'Edit Review', edit_book_review_path(@book, review) %><br>

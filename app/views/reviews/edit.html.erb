@@ -1,0 +1,20 @@
+<h1>Editing Your Review</h1>
+
+<%= form_for([@book, @book.reviews.find(@review.id)]) do |form| %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id, class:'d-none'  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back To The Book', @book%> |
+<%= link_to 'Back To All Books', books_path %>
