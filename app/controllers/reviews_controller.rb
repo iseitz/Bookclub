@@ -29,6 +29,14 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @user = current_user
+    @review = @book.reviews.find(params[:id])
+    @review.destroy
+    redirect_to @book
+  end
+
+
   private
 
   def set_review
@@ -40,7 +48,7 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:content, :image, :user_id)
+    params.require(:review).permit(:id, :content, :image, :user_id, :book_id)
   end
 
 end

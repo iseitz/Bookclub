@@ -5,39 +5,56 @@
       <% if @book.image? %>
           <%= image_tag(@book.image.large.url) %>
       <% end %>
-       <div class="table-responsive">
-         <table class="table">
-           <tbody>
-             <tr>
-               <td><strong>Title:</strong></td>
-               <td><%= @book.title %></td>
-             </tr>
-             <tr>
-               <td><strong>Description:</strong></td>
-               <td><%= @book.description %></td>
-             </tr>
-             <tr>
-               <td><strong>Author:</strong></td>
-               <td><%= @book.author_firstname %>
-               <%= @book.author_lastname %></td>
-             </tr>
-             <tr>
-               <td><strong>By User:</strong></td>
-               <td><%= @user.username %></td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
+      </div>
+      <div class="col-md-15 col-md-offset-15">
+         <div class="table-responsive">
+           <table class="table">
+             <tbody>
+               <tr>
+                 <td><strong>Rating:</strong></td>
+                 <td>
+                   <ul class="rating">
+                   <% @book.rating.to_i.times do |i| %>
+                      <span class="glyphicon glyphicon-star"></span>
+                   <% end %>
+                   <%= @book.rating %>
+                   </ul>
+                  </td>
+              </tr>
+               <tr>
+                 <td><strong>Title:</strong></td>
+                 <td><%= @book.title %></td>
+               </tr>
+               <tr>
+                 <td><strong>Author:</strong></td>
+                 <td><%= @book.author_firstname %>
+                 <%= @book.author_lastname %></td>
+               </tr>
+               <tr>
+                 <td><strong>By User:</strong></td>
+                 <td><%= @user.username %></td>
+               </tr>
+               <tr>
+                 <td><strong>Description:</strong></td>
+                 <td><%= @book.description %></td>
+               </tr>
+             </tbody>
+           </table>
+         </div>
+      </div>
+
   </div>
 </div>
 
 
-
 <h2>Reviews</h2>
-
-<%= render @book.reviews %>
-
-<br>
+<div class="col-md-7 col-md-offset-1">
+  <% if @book.reviews.blank? %>
+    <h3>No reviews just yet, would you like to write your review? </h3>
+  <% else %>
+    <%= render @book.reviews %>
+  <% end %>
+</div>
 
 <% if user_signed_in? %>
   <%= render "reviews/form" %>
@@ -50,5 +67,4 @@
 <% end %>
 
 
-
-<%= link_to 'Back', books_path %>
+<%= link_to 'Back To All Books', books_path %>
