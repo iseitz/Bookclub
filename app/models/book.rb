@@ -5,8 +5,8 @@ class Book < ApplicationRecord
   validates :description, presence: :true
   validates :author_firstname, presence: :true
   validates :author_lastname, presence: :true, length: { minimum: 3 }
-  validates :rating, presence: :true, inclusion: { in: 1..5 }
   mount_uploader :image, BookImageUploader
+  ratyrate_rateable 'overall'
 
 
   def identify

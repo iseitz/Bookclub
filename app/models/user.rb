@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates :encrypted_password, presence: :true
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   mount_uploader :avatar, AvatarUploader
+  ratyrate_rater
 
   def admin?
     role == "admin"

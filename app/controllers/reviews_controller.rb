@@ -10,6 +10,7 @@ class ReviewsController < ApplicationController
   def create
     @review = @book.reviews.build(review_params)
     @book_user = User.find(@book.user_id)
+    @review.user_id = current_user.id
 
     ReviewMailer.review_created(current_user, @book_user, @review.content, @book).deliver
     if @review.save
