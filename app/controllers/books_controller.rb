@@ -21,7 +21,7 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    @book = current_user.books.build
   end
 
   # GET /books/1/edit
@@ -32,7 +32,7 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @user = current_user
-    @book = @user.books.new(book_params)
+    @book = @user.books.build(book_params)
     @book.user_id = current_user.id
 
     respond_to do |format|
@@ -73,6 +73,7 @@ class BooksController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -81,6 +82,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :description, :image, :user_id, :author_firstname, :author_lastname)
+      params.require(:book).permit(:id, :title, :description, :image, :user_id, :author_firstname, :author_lastname)
     end
 end

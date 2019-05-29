@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :books
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   # Include default devise modules. Others available are:
   #  :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates :encrypted_password, presence: :true
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   mount_uploader :avatar, AvatarUploader
+  ratyrate_rater
 
   def admin?
     role == "admin"
@@ -19,6 +20,10 @@ class User < ApplicationRecord
 
   def member?
     role == "member"
+  end
+
+  def inactive?
+    role == "inactive"
   end
 
   def authorize_user

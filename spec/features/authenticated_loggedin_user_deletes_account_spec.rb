@@ -56,7 +56,6 @@ feature "authenticated user can delete their account with information" do
     expect(page).to_not have_content("Edit Profile")
 
     click_link "Discover Books"
-    save_and_open_page
     expect(page).to have_content("#{@book.title}")
     expect(page).to have_content("#{@book.author_firstname} #{@book.author_lastname}")
     expect(page).to have_content("Posted by #{@user1.username}")

@@ -1,43 +1,78 @@
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+<head>
+      <%= javascript_include_tag 'ratyrate.js', "data-turbolinks-track": false %>
+</head>
+<body>
 
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4">
+          <% if @book.image? %>
+              <%= image_tag(@book.image.large.url) %>
+          <% end %>
 
-<p>
-<% if @book.image? %>
-    <%= image_tag(@book.image.small.url) %>
-<% end %>
-</p>
+          <% if current_user %>
+            <div class="small-2 large-2 columns">
+                Your rating: <%= rating_for_user @book, current_user, "overall", enable_half: true, half_show: true, disable_after_rate: true %>
+            </div>
+            <% if current_user.id == @user.id %>
+              <div class="small-2 large-4 columns">
+                Overall Rating: <%= rating_for @book, "overall", enable_half: true, half_show: true, disable_after_rate: true %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-md-15 col-md-offset-15">
+           <div class="table-responsive">
+             <table class="table">
+               <tbody>
+                 <tr>
+                   <td><strong>Title:</strong></td>
+                   <td><%= @book.title %></td>
+                 </tr>
+                 <tr>
+                   <td><strong>Author:</strong></td>
+                   <td><%= @book.author_firstname %>
+                   <%= @book.author_lastname %></td>
+                 </tr>
+                 <tr>
+                   <td><strong>By User:</strong></td>
+                   <td><%= @user.username %></td>
+                 </tr>
+                 <tr>
+                   <td><strong>Description:</strong></td>
+                   <td><%= @book.description %></td>
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+        </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Author:</strong>
-  <%= @book.author_firstname %>
-  <%= @book.author_lastname %>
-</p>
 
-<p>
-  <strong>By User:</strong>
-  <%= @user.username %>
-</p>
-
-<h2>Reviews</h2>
-
-<%= render @book.reviews %>
-
-<br>
-
-<% if user_signed_in? %>
-  <%= render "reviews/form" %>
-  <% if current_user.id == @user.id  || current_user.role == "admin" %>
-    <%= link_to 'Edit', edit_book_path(@book) %>
-  <% end %>
-<% end %>
-
+ <div class="row">
+   <div class="col-md-7 col-md-offset-1">
+      <h2>Reviews</h2>
+      <% if @book.reviews.blank? %>
+        <h3>No reviews just yet, would you like to write your review? </h3>
+      <% else %>
+        <%= render @book.reviews %>
+      <% end %>
+  </div>
+  <div class="col-md-7 col-md-offset-1">
+    <% if user_signed_in? %>
+      <%= render "reviews/form" %>
+      <% if current_user.id == @user.id  || current_user.role == "admin" %>
+        <%= link_to 'Edit', edit_book_path(@book) %>
+      <% end %>
+      <% if current_user.role == "admin" %>
+        <%= link_to 'Delete Book', @book, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    <% end %>
+    <%= link_to 'Back To All Books', books_path %>
+  </div>
 
 
-<%= link_to 'Back', books_path %>
+</div>
+</body>
