@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
   root to: 'home#index'
   resources :books do
+    collection do
+      get 'search'
+    end
     resources :reviews
   end
   devise_for :users, controllers: { registrations: "registrations", account_update: "registrations" }
