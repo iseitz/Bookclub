@@ -14,3 +14,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 #For ratyrate use on the book.show.html.erb page
 Rails.application.config.assets.precompile += %w( ratyrate.js )
+# To deploy the star images to Heroku
+Rails.application.config.assets.compile = true

@@ -1,8 +1,7 @@
 <% if !user_signed_in? %>
     <div class="jumbotron">
-      <h3>Be Nice, Share With Others Your Best Books To Read</h3>
-      <p>We are sure you have some nice books to share with others!</p>
-      <p><%= link_to "Sign Up To Write A Review Of Your Favorite Books", new_user_registration_path, class: 'btn btn-primary btn-lg' %></p>
+      <h3>Would you like to share with others your favorite books?</h3>
+      <p><%= link_to "Yes, sign me up!", new_user_registration_path, class: 'btn btn-primary btn-lg' %></p>
     </div>
 <% end %>
 
@@ -17,8 +16,12 @@
               <%= link_to (image_tag "default.jpeg", class: 'image'), book %>
             <% end %>
             <br>
-
-            <% if @rating = Rate.where(rateable_id: book.id) %>
+            <% @rating = Rate.where(rateable_id: book.id) %>
+            <% if @rating.length == 0 %>
+              <% 5.times do %>
+                <span class="glyphicon glyphicon-star-empty"></span>
+              <% end %>
+            <% else %>
                 <% @sum = 0 %>
                 <% @rating.each do |rate| %>
                   <% @sum += rate.stars_num %>

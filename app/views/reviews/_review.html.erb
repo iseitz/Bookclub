@@ -1,8 +1,9 @@
 <% @review_user = User.find(review.user_id) %>
-<strong><p><%= @review_user.username %></p></strong>
+<strong><p><%= @review_user.username %> said:</p></strong>
 <p><%= review.content %></p>
 <%= link_to 'Edit Review', edit_book_review_path(@book, review) %>
 <br>
 <% if @user.role == "admin" %>
   <%= link_to 'Delete Review', [@book, review], method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
+<br>

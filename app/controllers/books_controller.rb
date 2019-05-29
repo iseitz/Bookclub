@@ -17,6 +17,15 @@ class BooksController < ApplicationController
     else
       @user = User.find_by(username: 'removedUser')
     end
+    @rating = Rate.where(rateable_id: @book.id)
+    if @rating.length != 0
+       @sum = 0
+       @rating.each do |rate|
+       @sum += rate.stars_num
+       end
+       @final_rating = @sum/@rating.length
+       @remaining_stars = 5 - @final_rating
+    end
   end
 
   # GET /books/new
