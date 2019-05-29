@@ -13,29 +13,29 @@
             <% end %>
 
             <% if current_user %>
-              <div class="small-2 large-2 columns">
-                  Your rating: <%= rating_for_user @book, current_user, "overall", enable_half: true, half_show: true, disable_after_rate: true %>
-              </div>
-              <% if current_user.id == @user.id %>
-                <div class="small-2 large-4 columns">
-                  Overall Rating: <%= rating_for @book, "overall", enable_half: true, half_show: true, disable_after_rate: true %>
+                <div class="small-2 large-2 columns">
+                    Your rating: <%= rating_for_user @book, current_user, "overall", enable_half: true, half_show: true, disable_after_rate: true %>
                 </div>
-              <% end %>
+                <% if current_user.id == @user.id %>
+                  <div class="small-2 large-4 columns">
+                    Overall Rating: <%= rating_for @book, "overall", enable_half: true, half_show: true, disable_after_rate: true %>
+                  </div>
+                <% end %>
             <% else %>
-              <% if @rating.length != 0 %>
-                  <% @final_rating.times do %>
-                    <span class="glyphicon glyphicon-star"></span>
-                  <% end %>
-                  <% @remaining_stars.times do %>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                  <% end %>
-              <% else %>
-                  <% 5.times do %>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                  <% end %>
-                  <h6>No rating yet, sign in to rate</h6>
-              <% end %>
-            <% end %>
+                <% if @rating.length != 0 %>
+                    <% @final_rating.times do %>
+                      <span class="glyphicon glyphicon-star"></span>
+                    <% end %>
+                    <% @remaining_stars.times do %>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                    <% end %>
+                <% else %>
+                    <% 5.times do %>
+                      <span class="glyphicon glyphicon-star-empty"></span>
+                    <% end %>
+                    <h6>No rating yet, sign in to rate</h6>
+                <% end %>
+             <% end %>
           </div>
           <div class="col-md-4 col-md-offset-4">
              <div class="table-responsive">

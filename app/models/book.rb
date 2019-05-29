@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  searchkick
   belongs_to :user
   has_many :reviews
   validates :title, presence: :true
@@ -7,7 +8,6 @@ class Book < ApplicationRecord
   validates :author_lastname, presence: :true, length: { minimum: 3 }
   mount_uploader :image, BookImageUploader
   ratyrate_rateable 'overall'
-
 
   def identify
     identification = self.title + self.author_lastname
