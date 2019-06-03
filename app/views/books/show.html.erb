@@ -1,5 +1,6 @@
 <head>
       <%= javascript_include_tag 'ratyrate.js', "data-turbolinks-track": false %>
+
 </head>
 <body>
 
@@ -65,11 +66,24 @@
         </div>
     </div>
   </div>
-
   <div class="container">
    <div class="row">
        <div class="col-md-7 col-md-offset-1">
-          <h2>Reviews</h2>
+         <span class="pull-right">
+           <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
+             <i class="icon-thumbs-up"></i>
+             <span id="book_<%= @book.id %>_upvotes"><%= @book.upvotes.size %> Upvotes</span>
+    
+           <% end %>
+           <br>
+           <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
+             <i class="icon-thumbs-down"></i>
+             <span id="book_<%= @book.id %>_downvotes"><%= @book.downvotes.size %> Downvotes</span>
+           <% end %>
+
+         </span>
+
+            <h2>Reviews</h2>
           <% if @book.reviews.blank? %>
             <h3>No reviews just yet, would you like to write your review? </h3>
           <% else %>

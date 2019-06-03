@@ -1,0 +1,5 @@
+<%= form_for [@book.upvotes.new], remote: true  do |f| %>
+<%= f.hidden_field :user_id, value: current_user.id, class:'d-none' %>
+<%= f.hidden_field :book_id, value: @book.id, class:'d-none' %>
+<div><%= f.submit "Upvote", class: "btn btn-primary" %></div>
+<% end %>

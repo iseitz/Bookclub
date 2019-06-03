@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
 
   def search
    if params[:search].present?
@@ -9,6 +9,43 @@ class BooksController < ApplicationController
      @books = Book.all
    end
   end
+
+  def upvoted?
+    Upvote.where(user_id: current_user.id, book_id: @book.id).exists?
+  end
+
+  def downvoted?
+    Downvote.where(user_id: current_user.id, book_id: @book.id).exists?
+  end
+
+  def upvote
+    if !(upvoted?)
+      if downvoted?
+        @user_downvote = @book.downvotes.where(user_id: current_user.id).first
+        Downvote.destroy(@user_downvote.id)
+      end
+      Upvote.create(book: @book, user: current_user, upvote: params[:upvote])
+      respond_to do |format|
+          format.html { redirect_to @book, flash[:success] = "Your upvote counted!"}
+          format.js
+      end
+    end
+  end
+
+  def downvote
+    if !(downvoted?)
+      if upvoted?
+        @user_upvote = @book.upvotes.where(user_id: current_user.id).first
+        Upvote.destroy(@user_upvote.id)
+      end
+      Downvote.create(book: @book, user: current_user, downvote: params[:downvote])
+      respond_to do |format|
+          format.html { redirect_to @book, flash[:success] = "Your downvote counted!"}
+          format.js
+      end
+    end
+  end
+
 
 
   # GET /books
@@ -100,6 +137,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:id, :title, :description, :image, :user_id, :author_firstname, :author_lastname)
+      params.require(:book).permit(:id, :title, :description, :image, :user_id, :author_firstname, :author_lastname, :upvote, :downvote)
     end
 end

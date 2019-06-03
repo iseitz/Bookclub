@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :books
   has_many :reviews, dependent: :destroy
+  has_many :upvotes
   # Include default devise modules. Others available are:
   #  :omniauthable
   devise :database_authenticatable, :registerable,
