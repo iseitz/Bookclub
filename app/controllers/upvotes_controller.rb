@@ -1,7 +1,7 @@
 class UpvotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_book
-  before_ation :set_user
+  before_action :set_user
 
 
 
@@ -30,7 +30,6 @@ class UpvotesController < ApplicationController
       respond_to do |format|
         format.js
       end
-    end
   end
 
   private

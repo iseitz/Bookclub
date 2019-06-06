@@ -43,6 +43,11 @@
                <table class="table">
                  <tbody>
                    <tr>
+                     <td><strong>Age Group:</strong></td>
+                     <% @group = AgeGroup.find(@book.age_group.id).group %>
+                     <td><%= @group %>years</td>
+                   </tr>
+                   <tr>
                      <td><strong>Title:</strong></td>
                      <td><%= @book.title %></td>
                    </tr>
@@ -73,7 +78,7 @@
            <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
              <i class="icon-thumbs-up"></i>
              <span id="book_<%= @book.id %>_upvotes"><%= @book.upvotes.size %> Upvotes</span>
-    
+
            <% end %>
            <br>
            <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
