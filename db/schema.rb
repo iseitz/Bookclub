@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_061617) do
+ActiveRecord::Schema.define(version: 2019_06_05_102804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "age_groups", force: :cascade do |t|
+    t.string "group", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group"], name: "index_age_groups_on_group", unique: true
+  end
 
   create_table "average_caches", force: :cascade do |t|
     t.bigint "rater_id"
@@ -35,6 +42,17 @@ ActiveRecord::Schema.define(version: 2019_05_28_061617) do
     t.datetime "updated_at", null: false
     t.string "author_firstname", null: false
     t.string "author_lastname", null: false
+    t.bigint "age_group_id"
+    t.index ["age_group_id"], name: "index_books_on_age_group_id"
+  end
+
+  create_table "downvotes", force: :cascade do |t|
+    t.boolean "downvote"
+    t.bigint "book_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_downvotes_on_book_id"
   end
 
   create_table "overall_averages", force: :cascade do |t|
@@ -79,6 +97,15 @@ ActiveRecord::Schema.define(version: 2019_05_28_061617) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "upvotes", force: :cascade do |t|
+    t.boolean "upvote"
+    t.bigint "book_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_upvotes_on_book_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", default: ""
     t.string "email", default: "", null: false
@@ -110,4 +137,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_061617) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "books", "age_groups"
+  add_foreign_key "downvotes", "books"
+  add_foreign_key "upvotes", "books"
 end

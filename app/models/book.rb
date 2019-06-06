@@ -1,7 +1,10 @@
 class Book < ApplicationRecord
   searchkick
   belongs_to :user
+  belongs_to :age_group
   has_many :reviews
+  has_many :upvotes
+  has_many :downvotes
   validates :title, presence: :true
   validates :description, presence: :true
   validates :author_firstname, presence: :true

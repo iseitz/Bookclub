@@ -1,5 +1,6 @@
 <head>
       <%= javascript_include_tag 'ratyrate.js', "data-turbolinks-track": false %>
+
 </head>
 <body>
 
@@ -42,6 +43,11 @@
                <table class="table">
                  <tbody>
                    <tr>
+                     <td><strong>Age Group:</strong></td>
+                     <% @group = AgeGroup.find(@book.age_group.id).group %>
+                     <td><%= @group %>years</td>
+                   </tr>
+                   <tr>
                      <td><strong>Title:</strong></td>
                      <td><%= @book.title %></td>
                    </tr>
@@ -65,17 +71,31 @@
         </div>
     </div>
   </div>
-
   <div class="container">
-   <div class="row">
+    <div class="row">
        <div class="col-md-7 col-md-offset-1">
-          <h2>Reviews</h2>
+          <div class= "u-pull-left vote-buttons">
+            <span class="glyphicon glyphicon-chevron-up">
+                <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
+                    <span id="book_<%= @book.id %>_upvotes"><%= @book.upvotes.size %></span>
+                <% end %>
+            </span>
+            <br>
+
+             <span class="glyphicon glyphicon-chevron-down">
+               <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
+                    <span id="book_<%= @book.id %>_downvotes"><%= @book.downvotes.size %></span>
+               <% end %>
+            </span>
+          </div>
+
+              <h2>Reviews</h2>
           <% if @book.reviews.blank? %>
             <h3>No reviews just yet, would you like to write your review? </h3>
           <% else %>
             <%= render @book.reviews %>
           <% end %>
-        </div>
+      </div>
         <div class="col-md-7 col-md-offset-1">
           <% if user_signed_in? %>
             <%= render "reviews/form" %>

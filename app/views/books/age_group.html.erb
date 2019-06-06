@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <% @books.each do |book| %>
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <% if book.image %>
+              <%= link_to (image_tag book.image.url(:medium), class: 'image'), book %>
+            <% else %>
+              <%= link_to (image_tag "default.jpeg", class: 'image'), book %>
+            <% end %>
+            <br>
+            <% @rating = Rate.where(rateable_id: book.id) %>
+            <% if @rating.length == 0 %>
+              <% 5.times do %>
+                <span class="glyphicon glyphicon-star-empty"></span>
+              <% end %>
+            <% else %>
+                <% @sum = 0 %>
+                <% @rating.each do |rate| %>
+                  <% @sum += rate.stars_num %>
+                <% end %>
+                <% @final_rating = @sum/@rating.length %>
+                <% @final_rating.times do %>
+                  <span class="glyphicon glyphicon-star"></span>
+                <% end %>
+                <% @remaining_stars = 5 - @final_rating %>
+                <% @remaining_stars.times do %>
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
