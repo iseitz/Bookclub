@@ -72,29 +72,30 @@
     </div>
   </div>
   <div class="container">
-   <div class="row">
+    <div class="row">
        <div class="col-md-7 col-md-offset-1">
-         <span class="pull-right">
-           <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
-             <i class="icon-thumbs-up"></i>
-             <span id="book_<%= @book.id %>_upvotes"><%= @book.upvotes.size %> Upvotes</span>
+          <div class= "u-pull-left vote-buttons">
+            <span class="glyphicon glyphicon-chevron-up">
+                <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
+                    <span id="book_<%= @book.id %>_upvotes"><%= @book.upvotes.size %></span>
+                <% end %>
+            </span>
+            <br>
 
-           <% end %>
-           <br>
-           <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
-             <i class="icon-thumbs-down"></i>
-             <span id="book_<%= @book.id %>_downvotes"><%= @book.downvotes.size %> Downvotes</span>
-           <% end %>
+             <span class="glyphicon glyphicon-chevron-down">
+               <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
+                    <span id="book_<%= @book.id %>_downvotes"><%= @book.downvotes.size %></span>
+               <% end %>
+            </span>
+          </div>
 
-         </span>
-
-            <h2>Reviews</h2>
+              <h2>Reviews</h2>
           <% if @book.reviews.blank? %>
             <h3>No reviews just yet, would you like to write your review? </h3>
           <% else %>
             <%= render @book.reviews %>
           <% end %>
-        </div>
+      </div>
         <div class="col-md-7 col-md-offset-1">
           <% if user_signed_in? %>
             <%= render "reviews/form" %>
