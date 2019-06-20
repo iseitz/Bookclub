@@ -10,10 +10,14 @@ RSpec.describe User, type: :model do
   it {  is_expected.to validate_presence_of(:encrypted_password) }
   it { is_expected.to have_many(:books) }
   it { is_expected.to have_many(:reviews) }
+  it { is_expected.to have_many(:upvotes) }
 
   context "it has admin role" do
     before(:each) do
       @user = FactoryBot.create(:user, role: "admin")
+    end
+    after(:each) do
+      @user.destroy
     end
 
     it "is admin if the role is admin" do
@@ -34,6 +38,7 @@ RSpec.describe User, type: :model do
       @user = FactoryBot.create(:user)
     end
 
+
     it "is member if the role is member" do
       expect(@user.admin?).to eq(false)
       expect(@user.role).to eq("member")
@@ -46,6 +51,11 @@ RSpec.describe User, type: :model do
       expect(@user.member?).to eq(true)
     end
 
+    context "user has relations with books and reviews" do
+      it "has many books" do
+        @book = FactoryBot.create(:book, user: @user)
+        expect(@user.books.size).to eq(1)
+      end
+    end
   end
-
 end
