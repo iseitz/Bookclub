@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_book
-  before_action :set_review, only: [:edit, :update]
+  before_action :set_review, only: %i[edit update]
 
-  def edit
-
-  end
+  def edit; end
 
   def create
     @review = @book.reviews.build(review_params)
@@ -37,7 +37,6 @@ class ReviewsController < ApplicationController
     redirect_to @book
   end
 
-
   private
 
   def set_review
@@ -51,5 +50,4 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:id, :content, :image, :user_id, :book_id)
   end
-
 end

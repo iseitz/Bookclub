@@ -48,9 +48,6 @@ class BookImageUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [500, 450]
   end
 
-  version :profile_size do
-    process resize_to_fit: [200, 200]
-  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

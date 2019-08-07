@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 class UpvotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_book
   before_action :set_user
-
-
 
   # def create
   #   @user = current_user
@@ -27,9 +27,9 @@ class UpvotesController < ApplicationController
 
   def destroy
     @upvote = Upvote.destroy(params[:id])
-      respond_to do |format|
-        format.js
-      end
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
@@ -43,7 +43,6 @@ class UpvotesController < ApplicationController
   end
 
   def upvote_params
-      params.require(:upvote).permit(:user_id, :book_id, :upvote)
+    params.require(:upvote).permit(:user_id, :book_id, :upvote)
   end
-
 end

@@ -1,6 +1,7 @@
-class RegistrationsController < Devise::RegistrationsController
+# frozen_string_literal: true
 
-  before_action :sign_up_params, :account_update_params, only:[:update], if: :devise_controller?
+class RegistrationsController < Devise::RegistrationsController
+  before_action :sign_up_params, :account_update_params, only: [:update], if: :devise_controller?
 
   def edit
     super
@@ -17,7 +18,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :current_password, :bio, :avatar)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :current_password, :bio, :avatar)
   end
-
 end

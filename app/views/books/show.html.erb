@@ -58,7 +58,8 @@
                    </tr>
                    <tr>
                      <td><strong>By User:</strong></td>
-                     <td><%= @user.username %></td>
+                     <td><%= link_to @book_user.username, user_path(@book_user) %></td>
+
                    </tr>
                    <tr>
                      <td><strong>Description:</strong></td>
@@ -75,18 +76,14 @@
     <div class="row">
        <div class="col-md-7 col-md-offset-1">
           <div class= "u-pull-left vote-buttons">
-            <span class="glyphicon glyphicon-chevron-up">
-                <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
-                    <span id="book_<%= @book.id %>_upvotes"><%= @book.upvotes.size %></span>
-                <% end %>
-            </span>
+              <%= link_to upvote_book_path(@book, upvote: true), method: 'post', remote: true do %>
+                <span id="book_<%= @book.id %>_upvotes" class="glyphicon glyphicon-chevron-up"><%= @book.upvotes.size %></span>
+              <% end %>
             <br>
 
-             <span class="glyphicon glyphicon-chevron-down">
-               <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
-                    <span id="book_<%= @book.id %>_downvotes"><%= @book.downvotes.size %></span>
-               <% end %>
-            </span>
+             <%= link_to downvote_book_path(@book, downvote: true), method: 'post', remote: true do %>
+              <span id="book_<%= @book.id %>_downvotes" class="glyphicon glyphicon-chevron-down"><%= @book.downvotes.size %></span>
+             <% end %>
           </div>
 
               <h2>Reviews</h2>
