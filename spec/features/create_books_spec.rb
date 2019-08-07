@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper.rb'
 
 feature 'Creating post with a book' do
@@ -31,7 +33,7 @@ feature 'Creating post with a book' do
     fill_in 'Description', with: 'description'
     fill_in 'Author firstname', with: 'Best'
     fill_in 'Author lastname', with: 'Author1'
-    page.attach_file ("#{Rails.root}/spec/support/images/photo.jpeg")
+    page.attach_file "#{Rails.root}/spec/support/images/photo.jpeg"
     click_button 'Create Book'
 
     expect(page).to have_content('title')
@@ -41,5 +43,4 @@ feature 'Creating post with a book' do
     expect(page).to have_content('Book was successfully created.')
     expect(page).to have_css("img[src*= 'photo.jpeg']")
   end
-
 end
